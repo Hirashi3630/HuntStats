@@ -6,6 +6,7 @@ namespace HuntStats.Features;
 
 public class TotalView
 {
+    public int Matches { get; set; }
     public int Kills { get; set; }
     public int YourKills { get; set; }
 
@@ -38,8 +39,8 @@ public class GetTotalsCommandHandler : IRequestHandler<GetTotalsCommand, TotalVi
         var matches = await _mediator.Send(new GetAllMatchCommand());
         var Settings = await _mediator.Send(new GetSettingsCommand());
         var test = matches.Select(x => x.Teams.Select(x => x.Players.Select(x => x.KilledByMe).Sum()).Sum());
-
         
+
         var totals = matches.Select(async x =>
         {
             var accolades = await _mediator.Send(new GetAccoladesByMatchIdCommand(x.Id));
@@ -64,6 +65,7 @@ public class GetTotalsCommandHandler : IRequestHandler<GetTotalsCommand, TotalVi
 
         return new TotalView()
         {
+            Matches = totals.Count(),
             Kills = totals.Select(x => x.Kills).Sum(),
             YourKills = totals.Select(x => x.YourKills).Sum(),
             Deaths = totals.Select(x => x.Deaths).Sum(),

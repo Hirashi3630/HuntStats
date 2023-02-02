@@ -17,6 +17,9 @@
     <h5>Overall Statistics</h5> 
     <div class="d-flex flex-row justify-content-between mt-2 mb-3">
         <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+            Total Matches: @Totals.Matches
+        </div>
+        <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
             Total Kills: @Totals.Kills
         </div>
         <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
@@ -171,11 +174,7 @@
     public async Task HandleChartsChange(int Id)
     {
         ChartsAmount = Id;
-        await FetchKillChart(true);
-        await FetchMmrChart(true);
-        await FetchMoneyChart(true);
-        await FetchXpChart(true);
-        await FetchBossChart(true);
+        GetChartInfo(true);
     }
 
     public List<DropdownSelect<int>.ListItem> ListItems { get; set; } = new()
