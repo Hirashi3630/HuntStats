@@ -174,7 +174,7 @@
     public async Task HandleChartsChange(int Id)
     {
         ChartsAmount = Id;
-        GetChartInfo(true);
+        await GetChartInfo(true);
     }
 
     public List<DropdownSelect<int>.ListItem> ListItems { get; set; } = new()
