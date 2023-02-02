@@ -14,7 +14,7 @@
 @inject IJSRuntime JS
 
 <div class="card-container" style="margin:  auto;">
-    <h5>Overall Statistics</h5>
+    <h5>Overall Statistics</h5> 
     <div class="d-flex flex-row justify-content-between mt-2 mb-3">
         <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
             Total Kills: @Totals.Kills
@@ -36,10 +36,10 @@
         </div>
     </div>
     <h5>Graphical statistics</h5>
+    <DropdownSelect TValue="int" SearchDisabled="true" ValueChanged="HandleChartsChange" Value="ChartsAmount" ListItems="ListItems"></DropdownSelect>
     <div class="chart-container d-flex flex-xl-row flex-column mt-2">
         <div class="card col position-relative me-xl-2" style="max-height: 750px;">
             <div class="card-body">
-                <DropdownSelect TValue="int" SearchDisabled="true" ValueChanged="HandleKillChartChange" Value="KillChartAmount" ListItems="ListItems"></DropdownSelect>
                 <div class="killChart" style="height: 400px !important;">
                     <canvas @ref="_killChart" id="chart" width="400" height="400">
 
@@ -69,7 +69,6 @@
         </div>
         <div class="card col position-relative mt-4 mt-xl-0 ms-xl-2">
             <div class="card-body">
-                <DropdownSelect TValue="int" SearchDisabled="true" ValueChanged="HandleMmrChartChange" Value="MmrChartAmount" ListItems="ListItems"></DropdownSelect>
                 <div class="mmrChart">
                     <canvas @ref="_mmrChart" id="chart" width="400" height="400">
 
@@ -89,7 +88,6 @@
     <div class="chart-container d-flex flex-xl-row flex-column mt-3">
         <div class="card col position-relative me-xl-2" style="max-height: 750px;">
             <div class="card-body">
-                <DropdownSelect TValue="int" SearchDisabled="true" ValueChanged="HandleMoneyChartChange" Value="MoneyChartAmount" ListItems="ListItems"></DropdownSelect>
                 <div class="moneyChart">
                     <canvas @ref="_moneyChart" id="chart" width="400" height="400">
 
@@ -104,7 +102,6 @@
         </div>
         <div class="card col position-relative mt-4 mt-xl-0 ms-xl-2">
             <div class="card-body">
-                <DropdownSelect TValue="int" SearchDisabled="true" ValueChanged="HandleXpChartChange" Value="XpChartAmount" ListItems="ListItems"></DropdownSelect>
                 <div class="moneyChart">
                     <canvas @ref="_xpChart" id="chart" width="400" height="400">
 
@@ -121,7 +118,6 @@
     <div class="chart-container d-flex flex-xl-row flex-column mt-3">
         <div class="card col position-relative me-xl-2" style="max-height: 750px;">
             <div class="card-body">
-                <DropdownSelect TValue="int" SearchDisabled="true" ValueChanged="HandleBossChartChange" Value="BossChartAmount" ListItems="ListItems"></DropdownSelect>
                 <div class="moneyChart">
                     <canvas @ref="_bossChart" id="chart" width="400" height="400">
 
@@ -158,11 +154,7 @@
     private ElementReference _bossChart;
 
     public TotalView Totals { get; set; } = new();
-    public int MmrChartAmount { get; set; } = 25;
-    public int MoneyChartAmount { get; set; } = 25;
-    public int KillChartAmount { get; set; } = 25;
-    public int BossChartAmount { get; set; } = 25;
-    public int XpChartAmount { get; set; } = 25;
+    public int ChartsAmount { get; set; } = 25;
     public int TotalKills { get; set; }
     public int TotalYourKills { get; set; }
     public int TotalDeaths { get; set; }
@@ -176,34 +168,14 @@
     public int Butcher { get; set; } = 0;
     public int Assassin { get; set; } = 0;
 
-    public async Task HandleKillChartChange(int Id)
+    public async Task HandleChartsChange(int Id)
     {
-        KillChartAmount = Id;
+        ChartsAmount = Id;
         await FetchKillChart(true);
-    }
-    
-    public async Task HandleBossChartChange(int Id)
-    {
-        BossChartAmount = Id;
-        await FetchBossChart(true);
-    }
-    
-    public async Task HandleMmrChartChange(int Id)
-    {
-        MmrChartAmount = Id;
         await FetchMmrChart(true);
-    }
-    
-    public async Task HandleMoneyChartChange(int Id)
-    {
-        MoneyChartAmount = Id;
         await FetchMoneyChart(true);
-    }
-
-    public async Task HandleXpChartChange(int Id)
-    {
-        XpChartAmount = Id;
         await FetchXpChart(true);
+        await FetchBossChart(true);
     }
 
     public List<DropdownSelect<int>.ListItem> ListItems { get; set; } = new()
@@ -232,6 +204,11 @@
         {
             Id = 100,
             Variable = "100"
+        },
+        new DropdownSelect<int>.ListItem()
+        {
+            Id = Int32.MaxValue,
+            Variable = "ALL"
         }
     };
 
@@ -276,7 +253,7 @@
     public async Task FetchBossChart(bool reset = false)
     {
         if(reset) await JS.InvokeAsync<string>("resetChart", _bossChart);
-        var bossChartInfo = await Mediator.Send(new BossChartQuery(BossChartAmount));
+        var bossChartInfo = await Mediator.Send(new BossChartQuery(ChartsAmount));
         Scrapbeak = bossChartInfo.Scrapbeak;
         Assassin = bossChartInfo.Assassin;
         Butcher = bossChartInfo.Butcher;
@@ -319,7 +296,7 @@
     public async Task FetchKillChart(bool reset = false)
     {
         if(reset) await JS.InvokeAsync<string>("resetChart", _killChart);
-        var killChartInfo = await Mediator.Send(new KillChartQuery(KillChartAmount));
+        var killChartInfo = await Mediator.Send(new KillChartQuery(ChartsAmount));
         TotalKills = killChartInfo.Select(x => x.Kills).Sum();
         TotalYourKills = killChartInfo.Select(x => x.YourKills).Sum();
         TotalDeaths = killChartInfo.Select(x => x.Deaths).Sum();
@@ -372,7 +349,7 @@
     public async Task FetchMmrChart(bool reset = false)
     {
         if(reset) await JS.InvokeAsync<string>("resetChart", _mmrChart);
-        var mmrChartInfo = await Mediator.Send(new MmrChartQuery(MmrChartAmount));
+        var mmrChartInfo = await Mediator.Send(new MmrChartQuery(ChartsAmount));
         var totalMmr = mmrChartInfo.Select(x => x.Mmr).Sum();
         var totalMatchMmr = mmrChartInfo.Select(x => x.TotalMmr).Sum();
         if (mmrChartInfo.Count != 0 && totalMmr != 0 && totalMatchMmr != 0)
@@ -410,7 +387,7 @@
     public async Task FetchMoneyChart(bool reset = false)
     {
         if(reset) await JS.InvokeAsync<string>("resetChart", _moneyChart);
-        var moneyChartInfo = await Mediator.Send(new MoneyChartQuery(MoneyChartAmount));
+        var moneyChartInfo = await Mediator.Send(new MoneyChartQuery(ChartsAmount));
         var totalHuntDollars = moneyChartInfo.Select(x => x.HuntDollars).Sum();
         if (moneyChartInfo.Count != 0 && totalHuntDollars != 0)
         {
@@ -437,7 +414,7 @@
     public async Task FetchXpChart(bool reset = false)
     {
         if(reset) await JS.InvokeAsync<string>("resetChart", _xpChart);
-        var xpChartInfo = await Mediator.Send(new XpChartQuery(XpChartAmount));
+        var xpChartInfo = await Mediator.Send(new XpChartQuery(ChartsAmount));
         var totalXp = xpChartInfo.Select(x => x.Xp).Sum();
         if (xpChartInfo.Count != 0 && totalXp != 0)
         {
