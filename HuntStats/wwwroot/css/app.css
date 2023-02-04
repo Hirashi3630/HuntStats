@@ -1122,3 +1122,9 @@ input.form-control {
 }
 
 /*# sourceMappingURL=app.css.map */
+
+.stats {
+    padding: 10px 15px;
+    border: 2px solid #343740;
+    border-radius: 15px;
+}

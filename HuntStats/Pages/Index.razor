@@ -16,25 +16,25 @@
 <div class="card-container" style="margin:  auto;">
     <h5>Overall Statistics</h5> 
     <div class="d-flex flex-row justify-content-between mt-2 mb-3">
-        <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+        <div class="stats">
             Total Matches: @Totals.Matches
         </div>
-        <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+        <div class="stats">
             Total Kills: @Totals.Kills
         </div>
-        <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+        <div class="stats">
             Your kills: @Totals.YourKills
         </div>
-        <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+        <div class="stats">
             Assists: @Totals.Assists
         </div>
-        <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+        <div class="stats">
             KD: @(((double)Totals.YourKills / Totals.Deaths).ToString("#.##").Replace("NaN", "0"))
         </div>
-        <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+        <div class="stats">
             KDA: @(((double)(Totals.YourKills + Totals.Assists) / Totals.Deaths).ToString("#.##").Replace("NaN", "0"))
         </div>
-        <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+        <div class="stats">
             Deaths: @Totals.Deaths
         </div>
     </div>
@@ -49,22 +49,22 @@
                     </canvas >
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-2">
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         Total Kills: @TotalKills
                     </div>
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         Your kills: @TotalYourKills
                     </div>
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         Assists: @TotalAssists
                     </div>
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         KD: @(((double)TotalYourKills / TotalDeaths).ToString("#.##").Replace("NaN", "0"))
                     </div>
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         KDA: @(((double)(TotalYourKills + TotalAssists) / TotalDeaths).ToString("#.##").Replace("NaN", "0"))
                     </div>
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         Deaths: @TotalDeaths
                     </div>
                 </div>
@@ -74,15 +74,15 @@
             <div class="card-body">
                 <div class="mmrChart">
                     <canvas @ref="_mmrChart" id="chart" width="400" height="400">
-
+                        
                     </canvas>
                 </div>
                  <div class="d-flex flex-row justify-content-between mt-2">
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
-                        Average Mmr: @AverageMmr
+                    <div class="stats">
+                        Avg MMR: @AverageMmr (<i class="fa fa-long-arrow-up"></i> @HighestMmr, <i class="fa fa-long-arrow-down"></i> @LowestMmr)
                     </div>
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
-                        Average Match Mmr: @AverageMatchMmr
+                    <div class="stats">
+                        Avg Match MMR: @AverageMatchMmr (<i class="fa fa-long-arrow-up"></i> @HighestMatchMmr, <i class="fa fa-long-arrow-down"></i> @LowestMatchMmr)
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                     </canvas>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-2">
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         Average: @AverageMoney
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                     </canvas>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-2">
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         Average: @AverageXp
                     </div>
                 </div>
@@ -127,16 +127,16 @@
                     </canvas>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-2">
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         Spider: @Spider
                     </div>
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         Scrapbeak: @Scrapbeak
                     </div>
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         Butcher: @Butcher
                     </div>
-                    <div class="stats" style="padding: 10px 15px; border: 2px solid #343740;border-radius: 15px;">
+                    <div class="stats">
                         Assassin: @Assassin
                     </div>
                 </div>
@@ -163,7 +163,11 @@
     public int TotalDeaths { get; set; }
     public int TotalAssists { get; set; }
     public int AverageMmr { get; set; } = 0;
+    public int HighestMmr { get; set; } = 0;
+    public int LowestMmr { get; set; } = 0;
     public int AverageMatchMmr { get; set; } = 0;
+    public int HighestMatchMmr { get; set; } = 0;
+    public int LowestMatchMmr { get; set; } = 0;
     public int AverageMoney { get; set; } = 0;
     public int AverageXp { get; set; } = 0;
     public int Spider { get; set; } = 0;
@@ -227,7 +231,7 @@
         await JS.InvokeAsync<string>("resetChart", _moneyChart);
         await JS.InvokeAsync<string>("resetChart", _bossChart);
     }
-    
+
     private async void AppStateOnNewMatchAdded()
     {
         await GetChartInfo(true);
@@ -248,7 +252,7 @@
     {
         Totals = await Mediator.Send(new GetTotalsCommand());
     }
-    
+
     public async Task FetchBossChart(bool reset = false)
     {
         if(reset) await JS.InvokeAsync<string>("resetChart", _bossChart);
@@ -350,11 +354,16 @@
         if(reset) await JS.InvokeAsync<string>("resetChart", _mmrChart);
         var mmrChartInfo = await Mediator.Send(new MmrChartQuery(ChartsAmount));
         var totalMmr = mmrChartInfo.Select(x => x.Mmr).Sum();
-        var totalMatchMmr = mmrChartInfo.Select(x => x.TotalMmr).Sum();
+        var matchMmrs = mmrChartInfo.Select(x => x.TotalMmr);
+        var totalMatchMmr = matchMmrs.Sum();
         if (mmrChartInfo.Count != 0 && totalMmr != 0 && totalMatchMmr != 0)
         {
             AverageMmr = totalMmr / mmrChartInfo.Count;
+            HighestMmr = mmrChartInfo.MaxBy(x => x.Mmr).Mmr;
+            LowestMmr = mmrChartInfo.MinBy(x => x.Mmr).Mmr;
             AverageMatchMmr = totalMatchMmr / mmrChartInfo.Count;
+            HighestMatchMmr = matchMmrs.Max();
+            LowestMatchMmr = matchMmrs.Min();
         }
         await JS.InvokeAsync<string>("createChart", _mmrChart, new
         {
